@@ -1,33 +1,25 @@
 import type { DashboardStats } from '@shared/ipcContract'
-import { SEQUENTIAL_BLUE_VARS } from '@renderer/theme/palette'
-import DonutChart from './DonutChart'
+import WeeklyBarChart from './WeeklyBarChart'
 
 interface CommitFrequencyDonutProps {
   commitFrequency: DashboardStats['commitFrequency']
 }
 
-function stepForIndex(index: number, count: number): string {
-  if (count <= 1) return SEQUENTIAL_BLUE_VARS[SEQUENTIAL_BLUE_VARS.length - 1]
-  const stepIndex = Math.round((index / (count - 1)) * (SEQUENTIAL_BLUE_VARS.length - 1))
-  return SEQUENTIAL_BLUE_VARS[stepIndex]
-}
-
 function CommitFrequencyDonut({ commitFrequency }: CommitFrequencyDonutProps): React.JSX.Element {
-  const segments = commitFrequency.map((bucket, i) => ({
-    label: `Wk ${bucket.bucket.split('-')[1] ?? i + 1}`,
-    value: bucket.count,
-    color: stepForIndex(i, commitFrequency.length)
+  const bars = commitFrequency.map((bucket, i) => ({
+    label: `W${bucket.bucket.split('-')[1] ?? i + 1}`,
+    value: bucket.count
   }))
-  const total = commitFrequency.reduce((sum, b) => sum + b.count, 0)
+  const total = bars.reduce((sum, b) => sum + b.value, 0)
 
   return (
     <div className="dashboard-donut">
       <h3>Commit frequency (8wk)</h3>
-      <DonutChart
-        segments={segments}
-        centerValue={total > 0 ? String(total) : undefined}
-        centerLabel="commits"
-      />
+      {total > 0 ? (
+        <WeeklyBarChart bars={bars} />
+      ) : (
+        <p className="bubble-cluster__empty">No commits in the last 8 weeks</p>
+      )}
     </div>
   )
 }

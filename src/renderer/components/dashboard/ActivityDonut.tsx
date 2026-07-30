@@ -1,6 +1,6 @@
 import type { DashboardStats } from '@shared/ipcContract'
 import { OTHER_BUCKET_VAR, STATUS_VARS } from '@renderer/theme/palette'
-import DonutChart from './DonutChart'
+import BubbleCluster from './BubbleCluster'
 
 interface ActivityDonutProps {
   activityBreakdown: DashboardStats['activityBreakdown']
@@ -19,21 +19,28 @@ const STATUS_COLOR: Record<string, string> = {
 }
 
 function ActivityDonut({ activityBreakdown }: ActivityDonutProps): React.JSX.Element {
-  const segments = activityBreakdown.map((a) => ({
+  const sorted = [...activityBreakdown].sort((a, b) => b.count - a.count)
+  const segments = sorted.map((a) => ({
     label: STATUS_LABEL[a.status],
     value: a.count,
+    displayValue: String(a.count),
     color: STATUS_COLOR[a.status]
   }))
-  const total = activityBreakdown.reduce((sum, a) => sum + a.count, 0)
 
   return (
     <div className="dashboard-donut">
       <h3>Repo activity</h3>
-      <DonutChart
-        segments={segments}
-        centerValue={total > 0 ? String(total) : undefined}
-        centerLabel="repos"
-      />
+      <BubbleCluster segments={segments} />
+      {segments.length > 0 && (
+        <ul className="bubble-legend">
+          {segments.map((seg) => (
+            <li key={seg.label}>
+              <span className="bubble-legend__swatch" style={{ background: seg.color }} />
+              {seg.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

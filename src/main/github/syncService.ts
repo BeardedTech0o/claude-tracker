@@ -10,9 +10,24 @@ import {
   type StoredRepoSummary
 } from '../db/reposRepo'
 import { replaceCommits } from '../db/commitsRepo'
+import { getSettingValue, setSettingValue } from '../db/settingsRepo'
 import { needsFullRefetch, needsShaCheck } from './diff'
 import type { GithubClient } from './client'
 import type { GhCommitItem, GhRepoListItem } from './types'
+
+// Bumping the per-repo commit fetch depth (see COMMIT_HISTORY_PER_PAGE)
+// only helps repos that actually get re-fetched - the SHA-diff logic skips
+// any repo whose default-branch head hasn't moved since its last sync, so
+// installs upgrading from an older version would otherwise keep their old,
+// shallow (5-commit) history forever. Force everyone through one full
+// refetch, once, the first time this runs post-upgrade.
+const COMMIT_HISTORY_BACKFILL_KEY = 'commit_history_backfill_v2'
+
+export function ensureCommitHistoryBackfill(db: Database.Database): void {
+  if (getSettingValue(db, COMMIT_HISTORY_BACKFILL_KEY) === '1') return
+  db.prepare('UPDATE repos SET last_synced_sha = NULL').run()
+  setSettingValue(db, COMMIT_HISTORY_BACKFILL_KEY, '1')
+}
 
 function mapRepoToUpsert(repo: GhRepoListItem): RepoUpsertInput {
   return {
@@ -78,6 +93,8 @@ export async function runSync(
   onProgress?: (progress: SyncProgress) => void
 ): Promise<SyncResult> {
   try {
+    ensureCommitHistoryBackfill(db)
+
     const remoteRepos: GhRepoListItem[] = []
     const iterator = octokit.paginate.iterator(octokit.rest.repos.listForAuthenticatedUser, {
       visibility: 'all',

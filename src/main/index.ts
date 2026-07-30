@@ -20,6 +20,17 @@ function fatalStartupError(context: string, err: unknown): void {
 process.on('uncaughtException', (err) => fatalStartupError('uncaughtException', err))
 process.on('unhandledRejection', (err) => fatalStartupError('unhandledRejection', err))
 
+// Explicitly opt into per-monitor high-DPI support. Chromium/Electron
+// normally pick this up from the exe's embedded manifest, but an unsigned,
+// freshly-installed exe can get Windows' legacy DPI-virtualization
+// compatibility heuristic applied to it, which bitmap-scales the whole
+// window and makes text/vector graphics look blurry/pixelated. This switch
+// doesn't override anything Windows sets at the OS level (see the app's
+// Properties > Compatibility tab if this doesn't resolve it), but it's the
+// documented app-side mitigation and doesn't hurt on displays where it
+// wasn't needed.
+app.commandLine.appendSwitch('high-dpi-support', '1')
+
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1400,

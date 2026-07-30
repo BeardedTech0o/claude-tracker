@@ -12,6 +12,7 @@
   --success-text: #0ca30c;
   --accent: #b6ff2e;
   --accent-ink: #0d0d0d;
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 
   --cat-1: #3987e5;
   --cat-2: #d95926;
@@ -49,6 +50,7 @@
   --success-text: #006300;
   --accent: #8ec400;
   --accent-ink: #0b0b0b;
+  --card-shadow: 0 8px 24px rgba(11, 11, 11, 0.08);
 
   --cat-1: #2a78d6;
   --cat-2: #eb6834;
@@ -147,10 +149,13 @@ body {
     -apple-system,
     'Segoe UI',
     sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .app-shell {
-  padding: 24px 32px;
+  padding: 28px 36px;
   width: 100%;
 }
 

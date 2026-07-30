@@ -1,6 +1,6 @@
 import type { DashboardStats } from '@shared/ipcContract'
 import { ALL_PAIRS_SAFE_CATEGORICAL_VARS, OTHER_BUCKET_VAR } from '@renderer/theme/palette'
-import DonutChart from './DonutChart'
+import BubbleCluster from './BubbleCluster'
 
 interface LanguageDonutProps {
   languageBreakdown: DashboardStats['languageBreakdown']
@@ -32,11 +32,17 @@ function LanguageDonut({ languageBreakdown }: LanguageDonutProps): React.JSX.Ele
   return (
     <div className="dashboard-donut">
       <h3>Languages</h3>
-      <DonutChart
-        segments={segments}
-        centerValue={sorted.length > 0 ? percent(sorted[0].byteCount) : undefined}
-        centerLabel={sorted[0]?.language}
-      />
+      <BubbleCluster segments={segments} />
+      {segments.length > 0 && (
+        <ul className="bubble-legend">
+          {segments.map((seg) => (
+            <li key={seg.label}>
+              <span className="bubble-legend__swatch" style={{ background: seg.color }} />
+              {seg.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
