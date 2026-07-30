@@ -29,6 +29,8 @@ jobs:
 
       - run: npm test
 
+      - run: npm run build
+
       - name: Build and publish NSIS installer
         run: npx electron-builder --win --publish always
         env:
