@@ -24,11 +24,16 @@ function ActivityDonut({ activityBreakdown }: ActivityDonutProps): React.JSX.Ele
     value: a.count,
     color: STATUS_COLOR[a.status]
   }))
+  const total = activityBreakdown.reduce((sum, a) => sum + a.count, 0)
 
   return (
     <div className="dashboard-donut">
       <h3>Repo activity</h3>
-      <DonutChart segments={segments} />
+      <DonutChart
+        segments={segments}
+        centerValue={total > 0 ? String(total) : undefined}
+        centerLabel="repos"
+      />
     </div>
   )
 }

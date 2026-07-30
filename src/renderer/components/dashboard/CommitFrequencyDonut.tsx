@@ -18,11 +18,16 @@ function CommitFrequencyDonut({ commitFrequency }: CommitFrequencyDonutProps): R
     value: bucket.count,
     color: stepForIndex(i, commitFrequency.length)
   }))
+  const total = commitFrequency.reduce((sum, b) => sum + b.count, 0)
 
   return (
     <div className="dashboard-donut">
       <h3>Commit frequency (8wk)</h3>
-      <DonutChart segments={segments} />
+      <DonutChart
+        segments={segments}
+        centerValue={total > 0 ? String(total) : undefined}
+        centerLabel="commits"
+      />
     </div>
   )
 }

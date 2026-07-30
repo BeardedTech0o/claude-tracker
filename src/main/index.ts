@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 import { autoUpdater } from 'electron-updater'
+import icon from '../../resources/icon.png?asset'
 import { getDbPath } from './appPaths'
 import { closeDb, getDb } from './db/connection'
 import { registerReposIpc } from './ipc/repos.ipc'
@@ -27,6 +28,7 @@ function createWindow(): void {
     minHeight: 640,
     show: false,
     autoHideMenuBar: true,
+    icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,

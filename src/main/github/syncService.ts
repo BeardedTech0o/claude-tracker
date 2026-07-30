@@ -41,6 +41,12 @@ function mapCommit(commit: GhCommitItem): { sha: string; message: string; author
   }
 }
 
+// The dashboard's "commits this week" stat and 8-week frequency chart need
+// more than just the 5 commits shown on a tile - fetch a wider window so
+// those aggregates are accurate. getCommitsForRepo() still LIMITs to 5 for
+// tile display, so this only affects storage depth, not what's shown there.
+const COMMIT_HISTORY_PER_PAGE = 100
+
 function isRequestError(err: unknown): err is RequestError {
   return typeof err === 'object' && err !== null && 'status' in err
 }
@@ -117,12 +123,16 @@ export async function runSync(
 
         if (!needsFullRefetch(headSha, local)) continue
 
+        // No `since` bound here on purpose: the tile always needs the repo's
+        // true latest 5 commits regardless of age, so this can't be limited
+        // to the 8-week frequency-chart window without going empty for
+        // repos that have been quiet longer than that.
         const [commitsResp, languagesResp] = await Promise.all([
           octokit.rest.repos.listCommits({
             owner,
             repo: repo.name,
             sha: repo.default_branch,
-            per_page: 5
+            per_page: COMMIT_HISTORY_PER_PAGE
           }),
           octokit.rest.repos.listLanguages({ owner, repo: repo.name })
         ])
