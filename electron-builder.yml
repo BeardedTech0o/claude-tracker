@@ -16,5 +16,6 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
 publish:
-  provider: generic
-  url: https://example.com/updates/
+  provider: github
+  owner: BeardedTech0o
+  repo: claude-tracker
