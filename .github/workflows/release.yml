@@ -22,6 +22,11 @@ jobs:
 
       - run: npm run typecheck
 
+      # postinstall rebuilds better-sqlite3 against Electron's Node ABI;
+      # vitest runs under plain Node, so rebuild back before testing.
+      # electron-builder rebuilds for Electron's ABI again when packaging.
+      - run: npm rebuild better-sqlite3
+
       - run: npm test
 
       - name: Build and publish NSIS installer
