@@ -1,23 +1,27 @@
 :root {
   color-scheme: dark;
 
-  /* Aurora ground: near-black with a lime/teal radial wash, not a flat fill. */
+  /* Aurora ground: near-black with a lime/teal wash that spans the whole
+     viewport, not just a hero strip up top - fixed so it reads the same
+     whether you're looking at the stats row or scrolled into the tile
+     wall below it. */
   --bg-wash:
-    radial-gradient(900px 460px at 6% -10%, rgba(198, 255, 74, 0.13), transparent 62%),
-    radial-gradient(760px 420px at 96% 4%, rgba(52, 224, 161, 0.11), transparent 60%),
-    #090d0c;
-  --page-plane: #090d0c;
-  --surface: rgba(255, 255, 255, 0.035);
-  --surface-raised: rgba(255, 255, 255, 0.045);
-  --surface-hover: rgba(255, 255, 255, 0.07);
+    radial-gradient(1100px 700px at 8% -6%, rgba(198, 255, 74, 0.22), transparent 60%),
+    radial-gradient(1000px 680px at 96% 8%, rgba(52, 224, 161, 0.19), transparent 58%),
+    radial-gradient(1300px 800px at 50% 115%, rgba(52, 224, 161, 0.13), transparent 62%),
+    #0a0f0d;
+  --page-plane: #0a0f0d;
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-raised: rgba(255, 255, 255, 0.065);
+  --surface-hover: rgba(255, 255, 255, 0.11);
 
-  --ink-primary: #edf3ee;
-  --ink-secondary: #93a297;
+  --ink-primary: #f2f6f0;
+  --ink-secondary: #9ba9a0;
   --ink-muted: #6c766e;
-  --gridline: rgba(255, 255, 255, 0.08);
-  --baseline: rgba(255, 255, 255, 0.16);
-  --border: rgba(255, 255, 255, 0.07);
-  --track: rgba(255, 255, 255, 0.07);
+  --gridline: rgba(255, 255, 255, 0.1);
+  --baseline: rgba(255, 255, 255, 0.18);
+  --border: rgba(255, 255, 255, 0.13);
+  --track: rgba(255, 255, 255, 0.08);
 
   --success-text: #34e0a1;
 
@@ -26,27 +30,32 @@
   --accent-2: #34e0a1;
   --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
   --accent-ink: #07160f;
-  --accent-glow: 0 0 26px color-mix(in srgb, var(--accent) 32%, transparent);
-  --accent-dim: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-glow: 0 0 30px color-mix(in srgb, var(--accent) 45%, transparent);
+  --accent-dim: color-mix(in srgb, var(--accent) 16%, transparent);
 
-  --card-glow: 0 0 34px color-mix(in srgb, var(--accent) 14%, transparent);
-  --card-blur: 14px;
+  /* Always-on ambient lift (glass floating above the wash) plus a top
+     inner highlight; the accent glow layers on top only on hover. */
+  --card-shadow: 0 14px 34px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --card-glow: 0 14px 34px rgba(0, 0, 0, 0.4), 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  --card-blur: 20px;
 
-  /* Fixed categorical/status/sequential chart palette - identity stays
-     constant regardless of the user's accent choice above. */
-  --cat-1: #3987e5;
-  --cat-2: #d95926;
-  --cat-3: #199e70;
-  --cat-4: #c98500;
-  --cat-5: #d55181;
-  --cat-6: #008300;
-  --cat-7: #9085e9;
-  --cat-8: #e66767;
-  --other-bucket: #7a8580;
+  /* Categorical/status chart palette, tinted to the Aurora family so
+     legends/donuts/language bars match the accepted design direction
+     instead of a generic unrelated hue set. */
+  --cat-1: #c6ff4a;
+  --cat-2: #34e0a1;
+  --cat-3: #4ac8ff;
+  --cat-4: #9c7cff;
+  --cat-5: #ff6bcb;
+  --cat-6: #ff8a5c;
+  --cat-7: #ffd166;
+  --cat-8: #2fb8c9;
+  --other-bucket: #8b93a5;
 
   --status-good: #34e0a1;
-  --status-warning: #fab219;
-  --status-serious: #ec835a;
+  --status-warning: #ffd166;
+  --status-serious: #ff8a5c;
   --status-critical: #ff6b8b;
 
   --seq-blue-100: #cde2fb;
@@ -102,6 +111,7 @@ body,
 
 body {
   background: var(--bg-wash);
+  background-attachment: fixed;
   color: var(--ink-primary);
   font-family: Poppins, system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 14px;

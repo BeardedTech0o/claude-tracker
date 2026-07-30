@@ -202,7 +202,7 @@ export function getDashboardStats(db: Database.Database): DashboardStats {
     .prepare(
       `SELECT strftime('%Y-%W', authored_at) as bucket, COUNT(*) as count
        FROM commits
-       WHERE authored_at >= datetime('now', '-8 weeks')
+       WHERE authored_at >= datetime('now', '-56 days')
        GROUP BY bucket
        ORDER BY bucket ASC`
     )

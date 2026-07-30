@@ -16,8 +16,8 @@ interface DonutChartProps {
 }
 
 const MIN_SEGMENT_PX = 3
-const STROKE = 10
-const HOVER_STROKE = 14
+const STROKE = 16
+const HOVER_STROKE = 21
 
 function DonutChart({
   segments,

@@ -111,6 +111,36 @@ describe('reposRepo', () => {
     expect(stats.languageBreakdown).toEqual([{ language: 'TypeScript', byteCount: 1000 }])
     expect(stats.activityBreakdown.find((a) => a.status === 'active')?.count).toBe(1)
   })
+
+  it('counts commits older than a week but within 8 weeks in commitFrequency', () => {
+    // Regression test: 'datetime(now, "-8 weeks")' is not a valid SQLite
+    // modifier (only days/hours/months/years are) - it silently evaluated
+    // to NULL, so the WHERE clause excluded every row and the frequency
+    // chart always showed empty even with recent commits.
+    upsertRepo(db, {
+      id: 1,
+      name: 'repo',
+      fullName: 'user/repo',
+      description: null,
+      htmlUrl: 'https://github.com/user/repo',
+      primaryLanguage: null,
+      defaultBranch: 'main',
+      stargazersCount: 0,
+      openIssuesCount: 0,
+      isPrivate: false,
+      isArchived: false,
+      pushedAt: null,
+      updatedAt: null
+    })
+    const threeWeeksAgo = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString()
+    replaceCommits(db, 1, [
+      { sha: 'old', message: 'three weeks ago', authorName: 'sam', authoredAt: threeWeeksAgo }
+    ])
+
+    const stats = getDashboardStats(db)
+    const totalInFrequency = stats.commitFrequency.reduce((sum, b) => sum + b.count, 0)
+    expect(totalInFrequency).toBe(1)
+  })
 })
 
 describe('settingsRepo', () => {

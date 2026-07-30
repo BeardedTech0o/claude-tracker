@@ -6,8 +6,8 @@
 
 .settings-button {
   background: var(--surface-raised);
-  backdrop-filter: blur(var(--card-blur));
-  -webkit-backdrop-filter: blur(var(--card-blur));
+  backdrop-filter: blur(var(--card-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--card-blur)) saturate(160%);
   border: 1px solid var(--border);
   color: var(--ink-secondary);
   border-radius: 11px;
