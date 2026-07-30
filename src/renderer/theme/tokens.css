@@ -1,0 +1,164 @@
+:root {
+  color-scheme: dark;
+  --surface: #1a1a19;
+  --surface-raised: #232322;
+  --page-plane: #0d0d0d;
+  --ink-primary: #ffffff;
+  --ink-secondary: #c3c2b7;
+  --ink-muted: #898781;
+  --gridline: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --success-text: #0ca30c;
+  --accent: #b6ff2e;
+  --accent-ink: #0d0d0d;
+
+  --cat-1: #3987e5;
+  --cat-2: #d95926;
+  --cat-3: #199e70;
+  --cat-4: #c98500;
+  --cat-5: #d55181;
+  --cat-6: #008300;
+  --cat-7: #9085e9;
+  --cat-8: #e66767;
+  --other-bucket: #898781;
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  --seq-blue-100: #cde2fb;
+  --seq-blue-250: #86b6ef;
+  --seq-blue-400: #3987e5;
+  --seq-blue-550: #1c5cab;
+  --seq-blue-700: #0d366b;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --surface-raised: #ffffff;
+  --page-plane: #f9f9f7;
+  --ink-primary: #0b0b0b;
+  --ink-secondary: #52514e;
+  --ink-muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --success-text: #006300;
+  --accent: #8ec400;
+  --accent-ink: #0b0b0b;
+
+  --cat-1: #2a78d6;
+  --cat-2: #eb6834;
+  --cat-3: #1baf7a;
+  --cat-4: #eda100;
+  --cat-5: #e87ba4;
+  --cat-6: #008300;
+  --cat-7: #4a3aa7;
+  --cat-8: #e34948;
+  --other-bucket: #898781;
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  --seq-blue-100: #cde2fb;
+  --seq-blue-250: #86b6ef;
+  --seq-blue-400: #3987e5;
+  --seq-blue-550: #1c5cab;
+  --seq-blue-700: #0d366b;
+}
+
+/* Accent overrides - selectable in Settings, independent of the fixed
+   categorical/status/sequential chart palette above. */
+:root[data-accent='lime'] {
+  --accent: #b6ff2e;
+  --accent-ink: #0d0d0d;
+}
+:root[data-theme='light'][data-accent='lime'] {
+  --accent: #8ec400;
+  --accent-ink: #0b0b0b;
+}
+
+:root[data-accent='blue'] {
+  --accent: #3987e5;
+  --accent-ink: #ffffff;
+}
+:root[data-theme='light'][data-accent='blue'] {
+  --accent: #2a78d6;
+  --accent-ink: #ffffff;
+}
+
+:root[data-accent='violet'] {
+  --accent: #9085e9;
+  --accent-ink: #0d0d0d;
+}
+:root[data-theme='light'][data-accent='violet'] {
+  --accent: #4a3aa7;
+  --accent-ink: #ffffff;
+}
+
+:root[data-accent='coral'] {
+  --accent: #d95926;
+  --accent-ink: #ffffff;
+}
+:root[data-theme='light'][data-accent='coral'] {
+  --accent: #eb6834;
+  --accent-ink: #ffffff;
+}
+
+:root[data-accent='teal'] {
+  --accent: #199e70;
+  --accent-ink: #ffffff;
+}
+:root[data-theme='light'][data-accent='teal'] {
+  --accent: #1baf7a;
+  --accent-ink: #ffffff;
+}
+
+:root[data-accent='pink'] {
+  --accent: #ff6fb0;
+  --accent-ink: #0d0d0d;
+}
+:root[data-theme='light'][data-accent='pink'] {
+  --accent: #e0468f;
+  --accent-ink: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--page-plane);
+  color: var(--ink-primary);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+
+.app-shell {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
