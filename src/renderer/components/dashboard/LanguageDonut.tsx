@@ -1,6 +1,6 @@
 import type { DashboardStats } from '@shared/ipcContract'
 import { ALL_PAIRS_SAFE_CATEGORICAL_VARS, OTHER_BUCKET_VAR } from '@renderer/theme/palette'
-import BubbleCluster from './BubbleCluster'
+import DonutCard from './DonutCard'
 
 interface LanguageDonutProps {
   languageBreakdown: DashboardStats['languageBreakdown']
@@ -25,25 +25,24 @@ function LanguageDonut({ languageBreakdown }: LanguageDonutProps): React.JSX.Ele
       color: ALL_PAIRS_SAFE_CATEGORICAL_VARS[i]
     })),
     ...(restTotal > 0
-      ? [{ label: 'Other', value: restTotal, displayValue: percent(restTotal), color: OTHER_BUCKET_VAR }]
+      ? [
+          {
+            label: 'Other',
+            value: restTotal,
+            displayValue: percent(restTotal),
+            color: OTHER_BUCKET_VAR
+          }
+        ]
       : [])
   ]
 
   return (
-    <div className="dashboard-donut">
-      <h3>Languages</h3>
-      <BubbleCluster segments={segments} />
-      {segments.length > 0 && (
-        <ul className="bubble-legend">
-          {segments.map((seg) => (
-            <li key={seg.label}>
-              <span className="bubble-legend__swatch" style={{ background: seg.color }} />
-              {seg.label}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <DonutCard
+      title="Languages"
+      segments={segments}
+      centerValue={totalBytes > 0 ? percent(sorted[0].byteCount) : '0%'}
+      centerLabel={sorted[0]?.language ?? ''}
+    />
   )
 }
 

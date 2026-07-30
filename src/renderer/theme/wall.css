@@ -16,11 +16,17 @@
   background: var(--accent);
   color: var(--accent-ink);
   border: none;
-  border-radius: 999px;
-  padding: 10px 20px;
+  border-radius: 8px;
+  padding: 9px 18px;
   font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  box-shadow: var(--card-shadow);
+  transition: filter 0.15s ease;
+}
+
+.refresh-button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: var(--accent-glow);
 }
 
 .refresh-button:disabled {
@@ -61,9 +67,16 @@
   background: var(--surface-raised);
   border: 1px solid var(--border);
   color: var(--ink-primary);
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 14px;
+  border-radius: 8px;
+  padding: 9px 13px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.search-box:focus,
+.sort-control:focus {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
 .search-box {
@@ -78,18 +91,21 @@
 
 .repo-tile {
   background: var(--surface-raised);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 18px;
+  border-radius: 10px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   box-shadow: var(--card-shadow);
-  transition: transform 0.15s ease;
+  transition:
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+  animation: fadeIn 0.24s ease-out both;
 }
 
 .repo-tile:hover {
-  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
 }
 
 .repo-tile__header {
@@ -176,7 +192,8 @@
 }
 
 .commit-list__meta code {
-  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 11px;
 }
 
 .commit-list__empty {

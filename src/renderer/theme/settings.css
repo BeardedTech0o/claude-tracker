@@ -7,13 +7,20 @@
 .settings-button {
   background: var(--surface-raised);
   border: 1px solid var(--border);
-  color: var(--ink-primary);
-  border-radius: 999px;
-  width: 40px;
-  height: 40px;
-  font-size: 16px;
+  color: var(--ink-secondary);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-size: 15px;
   cursor: pointer;
-  box-shadow: var(--card-shadow);
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.settings-button:hover {
+  color: var(--ink-primary);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .settings-screen {

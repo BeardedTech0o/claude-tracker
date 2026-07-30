@@ -12,7 +12,11 @@
   --success-text: #0ca30c;
   --accent: #b6ff2e;
   --accent-ink: #0d0d0d;
-  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --track: rgba(255, 255, 255, 0.07);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
+  --accent-glow: 0 0 20px color-mix(in srgb, var(--accent) 25%, transparent);
+  --accent-dim: color-mix(in srgb, var(--accent) 12%, transparent);
 
   --cat-1: #3987e5;
   --cat-2: #d95926;
@@ -50,7 +54,11 @@
   --success-text: #006300;
   --accent: #8ec400;
   --accent-ink: #0b0b0b;
-  --card-shadow: 0 8px 24px rgba(11, 11, 11, 0.08);
+  --track: rgba(11, 11, 11, 0.07);
+  --card-shadow: 0 1px 3px rgba(11, 11, 11, 0.08), 0 0 0 1px rgba(11, 11, 11, 0.06);
+  --card-shadow-hover: 0 4px 16px rgba(11, 11, 11, 0.12), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+  --accent-glow: 0 0 20px color-mix(in srgb, var(--accent) 22%, transparent);
+  --accent-dim: color-mix(in srgb, var(--accent) 14%, transparent);
 
   --cat-1: #2a78d6;
   --cat-2: #eb6834;
@@ -144,14 +152,47 @@ body,
 body {
   background: var(--page-plane);
   color: var(--ink-primary);
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    sans-serif;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+code,
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .app-shell {

@@ -13,14 +13,14 @@ function CommitFrequencyDonut({ commitFrequency }: CommitFrequencyDonutProps): R
   const total = bars.reduce((sum, b) => sum + b.value, 0)
 
   return (
-    <div className="dashboard-donut">
-      <h3>Commit frequency (8wk)</h3>
+    <section className="card">
+      <h3 className="card__title">Commit frequency (8wk)</h3>
       {total > 0 ? (
         <WeeklyBarChart bars={bars} />
       ) : (
-        <p className="bubble-cluster__empty">No commits in the last 8 weeks</p>
+        <p className="card__empty">No commits in the last 8 weeks</p>
       )}
-    </div>
+    </section>
   )
 }
 
