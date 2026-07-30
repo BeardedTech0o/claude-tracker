@@ -7,7 +7,6 @@ import type {
   Settings,
   SyncProgress,
   SyncResult,
-  Theme,
   Accent
 } from '@shared/ipcContract'
 
@@ -27,7 +26,6 @@ const api: PreloadApi = {
   },
   settings: {
     get: (): Promise<Settings> => ipcRenderer.invoke(IpcChannels.settingsGet),
-    setTheme: (theme: Theme): Promise<void> => ipcRenderer.invoke(IpcChannels.settingsSetTheme, theme),
     setAccent: (accent: Accent): Promise<void> =>
       ipcRenderer.invoke(IpcChannels.settingsSetAccent, accent),
     setToken: (token: string): Promise<void> => ipcRenderer.invoke(IpcChannels.settingsSetToken, token),

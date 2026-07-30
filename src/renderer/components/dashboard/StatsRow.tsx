@@ -9,8 +9,8 @@ function StatsRow({ stats }: StatsRowProps): React.JSX.Element {
   return (
     <div className="stats-row">
       <StatTile label="Total repos" value={stats.totalRepos} />
-      <StatTile label="Active repos" value={stats.activeRepos} />
-      <StatTile label="Commits this week" value={stats.commitsThisWeek} />
+      <StatTile label="Active repos" value={stats.activeRepos} accent />
+      <StatTile label="Commits this week" value={stats.commitsThisWeek} accent />
       <StatTile label="Total stars" value={stats.totalStars} />
     </div>
   )

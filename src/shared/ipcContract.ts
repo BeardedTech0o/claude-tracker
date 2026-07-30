@@ -4,13 +4,10 @@ export const IpcChannels = {
   syncRun: 'sync:run',
   syncProgress: 'sync:progress',
   settingsGet: 'settings:get',
-  settingsSetTheme: 'settings:setTheme',
   settingsSetAccent: 'settings:setAccent',
   settingsSetToken: 'settings:setToken',
   settingsHasToken: 'settings:hasToken'
 } as const
-
-export type Theme = 'dark' | 'light'
 
 export type Accent = 'lime' | 'blue' | 'violet' | 'coral' | 'teal' | 'pink'
 
@@ -72,7 +69,6 @@ export interface SyncProgress {
 }
 
 export interface Settings {
-  theme: Theme
   accent: Accent
   hasToken: boolean
 }
@@ -88,7 +84,6 @@ export interface PreloadApi {
   }
   settings: {
     get: () => Promise<Settings>
-    setTheme: (theme: Theme) => Promise<void>
     setAccent: (accent: Accent) => Promise<void>
     setToken: (token: string) => Promise<void>
     hasToken: () => Promise<boolean>

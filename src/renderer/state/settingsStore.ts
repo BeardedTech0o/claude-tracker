@@ -1,10 +1,9 @@
 import { create } from 'zustand'
-import type { Accent, Settings, Theme } from '@shared/ipcContract'
+import type { Accent, Settings } from '@shared/ipcContract'
 
 interface SettingsState {
   settings: Settings | null
   fetchSettings: () => Promise<void>
-  setTheme: (theme: Theme) => Promise<void>
   setAccent: (accent: Accent) => Promise<void>
   setToken: (token: string) => Promise<void>
 }
@@ -14,11 +13,6 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   fetchSettings: async () => {
     const settings = await window.api.settings.get()
     set({ settings })
-  },
-  setTheme: async (theme) => {
-    await window.api.settings.setTheme(theme)
-    const current = get().settings
-    set({ settings: current ? { ...current, theme } : current })
   },
   setAccent: async (accent) => {
     await window.api.settings.setAccent(accent)

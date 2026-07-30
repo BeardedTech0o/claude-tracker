@@ -16,7 +16,6 @@ function ThemeProvider({ children }: ThemeProviderProps): React.JSX.Element {
 
   useEffect(() => {
     if (!settings) return
-    document.documentElement.setAttribute('data-theme', settings.theme)
     document.documentElement.setAttribute('data-accent', settings.accent)
   }, [settings])
 

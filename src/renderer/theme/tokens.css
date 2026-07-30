@@ -1,23 +1,39 @@
 :root {
   color-scheme: dark;
-  --surface: #1a1a19;
-  --surface-raised: #232322;
-  --page-plane: #0d0d0d;
-  --ink-primary: #ffffff;
-  --ink-secondary: #c3c2b7;
-  --ink-muted: #898781;
-  --gridline: #2c2c2a;
-  --baseline: #383835;
-  --border: rgba(255, 255, 255, 0.1);
-  --success-text: #0ca30c;
-  --accent: #b6ff2e;
-  --accent-ink: #0d0d0d;
+
+  /* Aurora ground: near-black with a lime/teal radial wash, not a flat fill. */
+  --bg-wash:
+    radial-gradient(900px 460px at 6% -10%, rgba(198, 255, 74, 0.13), transparent 62%),
+    radial-gradient(760px 420px at 96% 4%, rgba(52, 224, 161, 0.11), transparent 60%),
+    #090d0c;
+  --page-plane: #090d0c;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-raised: rgba(255, 255, 255, 0.045);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+
+  --ink-primary: #edf3ee;
+  --ink-secondary: #93a297;
+  --ink-muted: #6c766e;
+  --gridline: rgba(255, 255, 255, 0.08);
+  --baseline: rgba(255, 255, 255, 0.16);
+  --border: rgba(255, 255, 255, 0.07);
   --track: rgba(255, 255, 255, 0.07);
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
-  --accent-glow: 0 0 20px color-mix(in srgb, var(--accent) 25%, transparent);
+
+  --success-text: #34e0a1;
+
+  /* Accent is a two-stop gradient, not a flat hue - swapped in Settings. */
+  --accent: #c6ff4a;
+  --accent-2: #34e0a1;
+  --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
+  --accent-ink: #07160f;
+  --accent-glow: 0 0 26px color-mix(in srgb, var(--accent) 32%, transparent);
   --accent-dim: color-mix(in srgb, var(--accent) 12%, transparent);
 
+  --card-glow: 0 0 34px color-mix(in srgb, var(--accent) 14%, transparent);
+  --card-blur: 14px;
+
+  /* Fixed categorical/status/sequential chart palette - identity stays
+     constant regardless of the user's accent choice above. */
   --cat-1: #3987e5;
   --cat-2: #d95926;
   --cat-3: #199e70;
@@ -26,12 +42,12 @@
   --cat-6: #008300;
   --cat-7: #9085e9;
   --cat-8: #e66767;
-  --other-bucket: #898781;
+  --other-bucket: #7a8580;
 
-  --status-good: #0ca30c;
+  --status-good: #34e0a1;
   --status-warning: #fab219;
   --status-serious: #ec835a;
-  --status-critical: #d03b3b;
+  --status-critical: #ff6b8b;
 
   --seq-blue-100: #cde2fb;
   --seq-blue-250: #86b6ef;
@@ -40,102 +56,37 @@
   --seq-blue-700: #0d366b;
 }
 
-:root[data-theme='light'] {
-  color-scheme: light;
-  --surface: #fcfcfb;
-  --surface-raised: #ffffff;
-  --page-plane: #f9f9f7;
-  --ink-primary: #0b0b0b;
-  --ink-secondary: #52514e;
-  --ink-muted: #898781;
-  --gridline: #e1e0d9;
-  --baseline: #c3c2b7;
-  --border: rgba(11, 11, 11, 0.1);
-  --success-text: #006300;
-  --accent: #8ec400;
-  --accent-ink: #0b0b0b;
-  --track: rgba(11, 11, 11, 0.07);
-  --card-shadow: 0 1px 3px rgba(11, 11, 11, 0.08), 0 0 0 1px rgba(11, 11, 11, 0.06);
-  --card-shadow-hover: 0 4px 16px rgba(11, 11, 11, 0.12), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
-  --accent-glow: 0 0 20px color-mix(in srgb, var(--accent) 22%, transparent);
-  --accent-dim: color-mix(in srgb, var(--accent) 14%, transparent);
-
-  --cat-1: #2a78d6;
-  --cat-2: #eb6834;
-  --cat-3: #1baf7a;
-  --cat-4: #eda100;
-  --cat-5: #e87ba4;
-  --cat-6: #008300;
-  --cat-7: #4a3aa7;
-  --cat-8: #e34948;
-  --other-bucket: #898781;
-
-  --status-good: #0ca30c;
-  --status-warning: #fab219;
-  --status-serious: #ec835a;
-  --status-critical: #d03b3b;
-
-  --seq-blue-100: #cde2fb;
-  --seq-blue-250: #86b6ef;
-  --seq-blue-400: #3987e5;
-  --seq-blue-550: #1c5cab;
-  --seq-blue-700: #0d366b;
-}
-
-/* Accent overrides - selectable in Settings, independent of the fixed
+/* Accent presets - all Aurora two-stop gradients, independent of the fixed
    categorical/status/sequential chart palette above. */
 :root[data-accent='lime'] {
-  --accent: #b6ff2e;
-  --accent-ink: #0d0d0d;
+  --accent: #c6ff4a;
+  --accent-2: #34e0a1;
+  --accent-ink: #07160f;
 }
-:root[data-theme='light'][data-accent='lime'] {
-  --accent: #8ec400;
-  --accent-ink: #0b0b0b;
-}
-
 :root[data-accent='blue'] {
-  --accent: #3987e5;
-  --accent-ink: #ffffff;
+  --accent: #4ac8ff;
+  --accent-2: #7c5cff;
+  --accent-ink: #060c1c;
 }
-:root[data-theme='light'][data-accent='blue'] {
-  --accent: #2a78d6;
-  --accent-ink: #ffffff;
-}
-
 :root[data-accent='violet'] {
-  --accent: #9085e9;
-  --accent-ink: #0d0d0d;
+  --accent: #9c7cff;
+  --accent-2: #ff6bcb;
+  --accent-ink: #0e0a1c;
 }
-:root[data-theme='light'][data-accent='violet'] {
-  --accent: #4a3aa7;
-  --accent-ink: #ffffff;
-}
-
 :root[data-accent='coral'] {
-  --accent: #d95926;
-  --accent-ink: #ffffff;
+  --accent: #ff8a5c;
+  --accent-2: #ffd166;
+  --accent-ink: #1c0f05;
 }
-:root[data-theme='light'][data-accent='coral'] {
-  --accent: #eb6834;
-  --accent-ink: #ffffff;
-}
-
 :root[data-accent='teal'] {
-  --accent: #199e70;
-  --accent-ink: #ffffff;
+  --accent: #34e0a1;
+  --accent-2: #4ac8ff;
+  --accent-ink: #061a15;
 }
-:root[data-theme='light'][data-accent='teal'] {
-  --accent: #1baf7a;
-  --accent-ink: #ffffff;
-}
-
 :root[data-accent='pink'] {
-  --accent: #ff6fb0;
-  --accent-ink: #0d0d0d;
-}
-:root[data-theme='light'][data-accent='pink'] {
-  --accent: #e0468f;
-  --accent-ink: #ffffff;
+  --accent: #ff6bcb;
+  --accent-2: #ff8a5c;
+  --accent-ink: #1c0a14;
 }
 
 * {
@@ -150,7 +101,7 @@ body,
 }
 
 body {
-  background: var(--page-plane);
+  background: var(--bg-wash);
   color: var(--ink-primary);
   font-family: Poppins, system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 14px;
@@ -166,7 +117,7 @@ code,
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -174,14 +125,15 @@ code,
   }
 }
 
-@keyframes slideUp {
+@keyframes drawArc {
   from {
-    opacity: 0;
-    transform: translateY(22px) scale(0.97);
+    stroke-dasharray: 0 999;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+}
+
+@keyframes growUp {
+  from {
+    transform: scaleY(0);
   }
 }
 
@@ -198,6 +150,7 @@ code,
 .app-shell {
   padding: 28px 36px;
   width: 100%;
+  min-height: 100%;
 }
 
 a {

@@ -6,7 +6,7 @@ import type Database from 'better-sqlite3'
 import { openDb } from './connection'
 import { getAllRepoSummaries, getDashboardStats, getReposWithDetails, replaceLanguages, upsertRepo } from './reposRepo'
 import { replaceCommits } from './commitsRepo'
-import { getSettings, setAccent, setEncryptedToken, setTheme } from './settingsRepo'
+import { getSettings, setAccent, setEncryptedToken } from './settingsRepo'
 
 let dir: string
 let db: Database.Database
@@ -114,18 +114,15 @@ describe('reposRepo', () => {
 })
 
 describe('settingsRepo', () => {
-  it('defaults theme/accent and reports no token until one is set', () => {
+  it('defaults accent and reports no token until one is set', () => {
     const settings = getSettings(db)
-    expect(settings.theme).toBe('dark')
     expect(settings.accent).toBe('lime')
     expect(settings.hasToken).toBe(false)
 
-    setTheme(db, 'light')
     setAccent(db, 'coral')
     setEncryptedToken(db, 'ciphertext-base64')
 
     const updated = getSettings(db)
-    expect(updated.theme).toBe('light')
     expect(updated.accent).toBe('coral')
     expect(updated.hasToken).toBe(true)
   })

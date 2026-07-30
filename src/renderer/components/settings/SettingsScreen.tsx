@@ -1,5 +1,4 @@
 import TokenInput from './TokenInput'
-import ThemeToggle from './ThemeToggle'
 import AccentPicker from './AccentPicker'
 
 interface SettingsScreenProps {
@@ -17,7 +16,6 @@ function SettingsScreen({ onClose }: SettingsScreenProps): React.JSX.Element {
       </header>
 
       <TokenInput />
-      <ThemeToggle />
       <AccentPicker />
     </section>
   )

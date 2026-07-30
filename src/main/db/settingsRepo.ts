@@ -1,7 +1,6 @@
 import type Database from 'better-sqlite3'
-import type { Accent, Settings, Theme } from '@shared/ipcContract'
+import type { Accent, Settings } from '@shared/ipcContract'
 
-const DEFAULT_THEME: Theme = 'dark'
 const DEFAULT_ACCENT: Accent = 'lime'
 const TOKEN_KEY = 'encrypted_token'
 
@@ -24,15 +23,10 @@ export function deleteSettingValue(db: Database.Database, key: string): void {
 }
 
 export function getSettings(db: Database.Database): Settings {
-  const theme = (getSettingValue(db, 'theme') as Theme | null) ?? DEFAULT_THEME
   const accent = (getSettingValue(db, 'accent') as Accent | null) ?? DEFAULT_ACCENT
   const hasToken = getSettingValue(db, TOKEN_KEY) !== null
 
-  return { theme, accent, hasToken }
-}
-
-export function setTheme(db: Database.Database, theme: Theme): void {
-  setSettingValue(db, 'theme', theme)
+  return { accent, hasToken }
 }
 
 export function setAccent(db: Database.Database, accent: Accent): void {

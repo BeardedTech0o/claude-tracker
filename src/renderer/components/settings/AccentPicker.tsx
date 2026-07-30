@@ -1,13 +1,14 @@
 import type { Accent } from '@shared/ipcContract'
 import { useSettingsStore } from '@renderer/state/settingsStore'
 
+// Gradient pairs mirror the --accent/--accent-2 tokens in tokens.css.
 const ACCENTS: { key: Accent; label: string; swatch: string }[] = [
-  { key: 'lime', label: 'Electric lime', swatch: '#b6ff2e' },
-  { key: 'blue', label: 'Electric blue', swatch: '#3987e5' },
-  { key: 'violet', label: 'Violet', swatch: '#9085e9' },
-  { key: 'coral', label: 'Coral', swatch: '#eb6834' },
-  { key: 'teal', label: 'Teal', swatch: '#1baf7a' },
-  { key: 'pink', label: 'Hot pink', swatch: '#ff6fb0' }
+  { key: 'lime', label: 'Aurora lime', swatch: 'linear-gradient(135deg, #c6ff4a, #34e0a1)' },
+  { key: 'blue', label: 'Electric blue', swatch: 'linear-gradient(135deg, #4ac8ff, #7c5cff)' },
+  { key: 'violet', label: 'Violet', swatch: 'linear-gradient(135deg, #9c7cff, #ff6bcb)' },
+  { key: 'coral', label: 'Coral', swatch: 'linear-gradient(135deg, #ff8a5c, #ffd166)' },
+  { key: 'teal', label: 'Teal', swatch: 'linear-gradient(135deg, #34e0a1, #4ac8ff)' },
+  { key: 'pink', label: 'Hot pink', swatch: 'linear-gradient(135deg, #ff6bcb, #ff8a5c)' }
 ]
 
 function AccentPicker(): React.JSX.Element {
