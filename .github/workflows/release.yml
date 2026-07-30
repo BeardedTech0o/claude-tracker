@@ -31,6 +31,13 @@ jobs:
 
       - run: npm run build
 
+      # electron-builder's internal @electron/rebuild step doesn't always
+      # detect that better-sqlite3 was swapped back to the plain-Node ABI
+      # by the step above (its cache thinks this Electron version was
+      # already handled from the postinstall rebuild) - force it explicitly
+      # so the shipped binary is never left on the wrong ABI.
+      - run: npx electron-rebuild -f -w better-sqlite3
+
       - name: Build and publish NSIS installer
         run: npx electron-builder --win --publish always
         env:
