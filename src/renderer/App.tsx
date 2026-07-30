@@ -1,23 +1,29 @@
 import { useEffect, useState } from 'react'
 import { useReposStore } from '@renderer/state/reposStore'
 import { useSyncStore } from '@renderer/state/syncStore'
+import { useSettingsStore } from '@renderer/state/settingsStore'
 import TileGrid from '@renderer/components/wall/TileGrid'
 import RefreshButton from '@renderer/components/shared/RefreshButton'
 import ErrorBanner from '@renderer/components/shared/ErrorBanner'
 import Dashboard from '@renderer/components/dashboard/Dashboard'
 import SettingsScreen from '@renderer/components/settings/SettingsScreen'
+import FirstRunModal from '@renderer/components/settings/FirstRunModal'
 
 function App(): React.JSX.Element {
   const repos = useReposStore((s) => s.repos)
   const stats = useReposStore((s) => s.stats)
   const fetchAll = useReposStore((s) => s.fetchAll)
   const runSync = useSyncStore((s) => s.runSync)
+  const settings = useSettingsStore((s) => s.settings)
   const [view, setView] = useState<'dashboard' | 'settings'>('dashboard')
+  const [firstRunDismissed, setFirstRunDismissed] = useState(false)
 
   useEffect(() => {
     fetchAll().then(() => runSync())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const showFirstRunModal = settings !== null && !settings.hasToken && !firstRunDismissed
 
   return (
     <div className="app-shell">
@@ -44,6 +50,16 @@ function App(): React.JSX.Element {
           {stats && <Dashboard stats={stats} />}
           <TileGrid repos={repos} />
         </>
+      )}
+
+      {showFirstRunModal && (
+        <FirstRunModal
+          onAddToken={() => {
+            setFirstRunDismissed(true)
+            setView('settings')
+          }}
+          onDismiss={() => setFirstRunDismissed(true)}
+        />
       )}
     </div>
   )

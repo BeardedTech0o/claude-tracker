@@ -134,3 +134,89 @@
 .accent-swatch.is-active {
   border-color: var(--ink-primary);
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 520px;
+  width: 100%;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.modal__intro {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-secondary);
+}
+
+.modal__section h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--ink-primary);
+}
+
+.modal__section p,
+.modal__section ol {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-secondary);
+}
+
+.modal__section ol {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal__section a {
+  color: var(--accent);
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.modal__secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink-secondary);
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.modal__primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}

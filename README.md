@@ -44,9 +44,30 @@ npm run dev
 module against Electron's Node ABI (`@electron/rebuild`) — this can take a
 minute the first time.
 
-Once the app is running, open **Settings** and paste in a
-[GitHub personal access token](https://github.com/settings/tokens) (classic
-or fine-grained, with `repo` read access) to start syncing.
+Once the app is running, open **Settings** and paste in a GitHub personal
+access token to start syncing. The first time you launch the app with no
+token configured, it shows a popup with these same instructions.
+
+### Token permissions
+
+The app only ever reads from GitHub — it never writes, comments, or pushes
+anything — so the token only needs read access.
+
+**Fine-grained token (recommended):** create one at
+[github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new).
+
+- **Repository access** — "All repositories" (or select specific ones you
+  want tracked)
+- **Repository permissions** → **Contents** — Read-only
+- **Metadata** is included automatically as Read-only and is required —
+  leave it as is
+
+**Classic token (alternative):** create one at
+[github.com/settings/tokens/new](https://github.com/settings/tokens/new)
+and check the **`repo`** scope. Classic tokens don't have a narrower
+read-only option for private repos, so `repo` (which includes write access
+the app never uses) is the minimum that can see them. If you only want
+public repos tracked, `public_repo` alone is enough.
 
 ### Scripts
 
