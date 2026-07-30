@@ -19,3 +19,4 @@ publish:
   provider: github
   owner: BeardedTech0o
   repo: claude-tracker
+  releaseType: release
